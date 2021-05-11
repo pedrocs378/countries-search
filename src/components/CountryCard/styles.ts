@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
 	width: 20rem;
-	height: 23rem;
+	height: 25rem;
 	border-radius: 5px;
 	overflow: hidden;
 	background: ${({ theme }) => theme.colors.shape};
@@ -16,7 +16,7 @@ export const Container = styled.div`
 	}
 
 	div {
-		padding: 0 1.5rem;
+		padding: 1.5rem;
 		margin: auto 0 2rem;
 
 		h2 {
@@ -46,12 +46,13 @@ export const Container = styled.div`
 	}
 
 	@media (min-width: 720px) {
-		width: calc((100% / 4) - 3rem);
+		width: calc((100% / 3) - 3rem);
+		height: 23rem;
 		margin-bottom: 5rem;
 		margin-right: 4rem;
 		transition: transform 0.3s;
 
-		&:nth-child(4n) {
+		&:nth-child(3n) {
 			margin-right: 0;
 		}
 
@@ -78,6 +79,18 @@ export const Container = styled.div`
 
 		&:hover {
 			transform: translateY(-3%);
+		}
+	}
+
+	@media (min-width: 1080px) {
+		width: calc((100% / 4) - 3rem);
+
+		&:nth-child(3n) {
+			margin-right: 4rem;
+		}
+
+		&:nth-child(4n) {
+			margin-right: 0;
 		}
 	}
 `

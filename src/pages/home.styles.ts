@@ -76,7 +76,6 @@ export const FiltersSelect = styled(Select)`
 
 	@media (min-width: 720px) {
 		margin-top: 0;
-		max-width: 200px;
 	}
 `
 
@@ -90,7 +89,5 @@ export const Content = styled.div`
 	@media (min-width: 720px) {
 		flex-direction: row;
 		flex-wrap: wrap;
-
-		
 	}
 `

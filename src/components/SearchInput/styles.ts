@@ -5,7 +5,7 @@ interface ContainerProps {
 	isFilled: boolean
 }
 
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.form<ContainerProps>`
 	display: flex;
 	align-items: center;
 	width: 100%;

@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Select from 'react-select'
 
 import { CountryCard } from "../components/CountryCard";
 import { Header } from "../components/Header";
@@ -25,20 +26,27 @@ interface Country {
   capital: string
 }
 
+interface FilterParams {
+  value: string
+  label: string
+}
+
 interface HomeProps {
-  countries: Country[]
+  data: Country[]
 }
 
 const filters = [
   { value: 'africa', label: 'Africa' },
-  { value: 'america', label: 'America' },
+  { value: 'americas', label: 'America' },
   { value: 'asia', label: 'Asia' },
   { value: 'europe', label: 'Europe' },
   { value: 'oceania', label: 'Oceania' },
-]
+] as FilterParams[]
 
-export default function Home({ countries }: HomeProps) {
+export default function Home({ data }: HomeProps) {
+  const [countries, setCountries] = useState<Country[]>(data)
   const [searchText, setSearchText] = useState('')
+  const [filter, setFilter] = useState<FilterParams>(null)
   const [isFocused, setIsFocused] = useState(false)
   const [isFilled, setIsFilled] = useState(false)
 
@@ -56,8 +64,50 @@ export default function Home({ countries }: HomeProps) {
     setIsFocused(true)
   }
 
-  if (!countries) {
-    return
+  useEffect(() => {
+    if (!searchText.trim()) {
+      setCountries(data)
+      return
+    }
+
+    api
+      .get(`/name/${searchText}`)
+      .then(response => {
+        const countriesTransformed = response.data.map(country => {
+          return {
+            ...country,
+            populationParsed: country.population.toLocaleString()
+          }
+        })
+
+        setCountries(countriesTransformed)
+      })
+      .catch(() => setCountries(data))
+  }, [searchText])
+
+  useEffect(() => {
+    if (!filter) {
+      setCountries(data)
+      return
+    }
+
+    api
+      .get(`/region/${filter.value}`)
+      .then(response => {
+        const countriesTransformed = response.data.map(country => {
+          return {
+            ...country,
+            populationParsed: country.population.toLocaleString()
+          }
+        })
+
+        setCountries(countriesTransformed)
+      })
+      .catch(() => setCountries(data))
+  }, [filter])
+
+  if (!data) {
+    return <div>Carregando...</div>
   }
 
   return (
@@ -81,9 +131,12 @@ export default function Home({ countries }: HomeProps) {
 
           <FiltersSelect
             classNamePrefix="react-select"
-            options={filters}
             isSearchable={false}
-            defaultValue={{ value: '', label: 'Filter by Region' }}
+            isClearable={true}
+            placeholder="Filter by Region"
+            options={filters}
+            value={filter}
+            onChange={(event) => setFilter(event)}
           />
         </SearchContainer>
 
@@ -105,12 +158,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
       ...country,
       populationParsed: country.population.toLocaleString()
     }
-
   })
 
   return {
     props: {
-      countries
-    }
+      data: countries
+    },
   }
 }
