@@ -2,18 +2,22 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
 	width: 20rem;
-	height: 21.875rem;
+	height: 23rem;
 	border-radius: 5px;
 	overflow: hidden;
 	background: ${({ theme }) => theme.colors.shape};
 
+	display: flex;
+	flex-direction: column;
+
 	img {
 		width: 100%;
-		max-height: 55%;
+		max-height: 58%;
 	}
 
 	div {
-		padding: 2rem 1.5rem 3rem;
+		padding: 0 1.5rem;
+		margin: auto 0 2rem;
 
 		h2 {
 			color: ${({ theme }) => theme.colors.heading};
@@ -45,13 +49,14 @@ export const Container = styled.div`
 		width: calc((100% / 4) - 3rem);
 		margin-bottom: 5rem;
 		margin-right: 4rem;
+		transition: transform 0.3s;
 
 		&:nth-child(4n) {
 			margin-right: 0;
 		}
 
 		div {
-			padding: 1.4rem 1.5rem;
+			padding: 0 1.5rem;
 
 			h2 {
 				font-size: 1.07rem;
@@ -69,6 +74,10 @@ export const Container = styled.div`
 
 		& + div {
 			margin-top: 0;
+		}
+
+		&:hover {
+			transform: translateY(-3%);
 		}
 	}
 `
