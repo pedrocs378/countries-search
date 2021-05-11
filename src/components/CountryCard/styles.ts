@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const Container = styled.a`
 	width: 20rem;
 	height: 25rem;
 	border-radius: 5px;
 	overflow: hidden;
 	background: ${({ theme }) => theme.colors.shape};
+	text-decoration: none;
 
 	display: flex;
 	flex-direction: column;
@@ -41,7 +42,7 @@ export const Container = styled.div`
 		}
 	}
 
-	& + div {
+	& + a {
 		margin-top: 2rem;
 	}
 
@@ -73,7 +74,7 @@ export const Container = styled.div`
 			}
 		}
 
-		& + div {
+		& + a {
 			margin-top: 0;
 		}
 

@@ -1,9 +1,10 @@
+import { memo } from 'react'
 import { IoMoonSharp, IoMoonOutline } from 'react-icons/io5'
 import { useTheme } from 'styled-components'
 
 import { Container, Content } from './styles'
 
-export function Header() {
+function HeaderComponent() {
 	const theme = useTheme()
 
 	return (
@@ -20,3 +21,5 @@ export function Header() {
 		</Container>
 	)
 }
+
+export const Header = memo(HeaderComponent, () => true)

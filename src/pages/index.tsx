@@ -14,7 +14,7 @@ import {
   SearchContainer,
   FiltersSelect,
   Content,
-} from './home.styles'
+} from '../styles/pages/home.styles'
 
 interface Country {
   numericCode: string

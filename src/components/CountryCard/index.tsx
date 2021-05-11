@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import Link from 'next/link'
 
 import { Container } from './styles'
 
@@ -17,16 +18,18 @@ interface CountryCardProps {
 function CountryCardComponent({ country }: CountryCardProps) {
 
 	return (
-		<Container>
-			<img src={country.flag} alt={country.name} />
-			<div>
-				<h2>{country.name}</h2>
+		<Link href={`/${country.name}`} passHref>
+			<Container>
+				<img src={country.flag} alt={country.name} />
+				<div>
+					<h2>{country.name}</h2>
 
-				<p><strong>Population: </strong> {country.populationParsed}</p>
-				<p><strong>Region: </strong> {country.region}</p>
-				<p><strong>Capital: </strong> {country.capital}</p>
-			</div>
-		</Container>
+					<p><strong>Population: </strong> {country.populationParsed}</p>
+					<p><strong>Region: </strong> {country.region}</p>
+					<p><strong>Capital: </strong> {country.capital}</p>
+				</div>
+			</Container>
+		</Link>
 	)
 }
 
