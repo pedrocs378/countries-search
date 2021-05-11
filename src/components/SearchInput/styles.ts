@@ -9,7 +9,7 @@ export const Container = styled.div<ContainerProps>`
 	display: flex;
 	align-items: center;
 	max-width: 450px;
-	height: 3rem;
+	height: 3.5rem;
 	background: ${({ theme }) => theme.colors.shape};
 	padding: 0 1.2rem;
 	border-radius: 5px;

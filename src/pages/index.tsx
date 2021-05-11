@@ -1,11 +1,23 @@
 import Head from "next/head";
 import { useState } from "react";
 
-import { FilterSelect } from "../components/FilterSelect";
 import { Header } from "../components/Header";
 import { SearchInput } from "../components/SearchInput";
 
-import { Container, SearchContainer } from './home.styles'
+import {
+  Container,
+  SearchContainer,
+  FiltersSelect,
+  Content,
+} from './home.styles'
+
+const filters = [
+  { value: 'africa', label: 'Africa' },
+  { value: 'america', label: 'America' },
+  { value: 'asia', label: 'Asia' },
+  { value: 'europe', label: 'Europe' },
+  { value: 'oceania', label: 'Oceania' },
+]
 
 export default function Home() {
   const [searchText, setSearchText] = useState('')
@@ -45,8 +57,17 @@ export default function Home() {
             onBlur={handleSearchInputBlur}
           />
 
-          <FilterSelect />
+          <FiltersSelect
+            classNamePrefix="react-select"
+            options={filters}
+            isSearchable={false}
+            defaultValue={{ value: '', label: 'Filter by Region' }}
+          />
         </SearchContainer>
+
+        <Content>
+
+        </Content>
       </Container>
     </>
   )
