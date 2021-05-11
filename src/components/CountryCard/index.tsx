@@ -1,18 +1,35 @@
+import { memo } from 'react'
 
 import { Container } from './styles'
 
-export function CountryCard() {
+interface Country {
+	name: string
+	populationParsed: string
+	region: string
+	flag: string
+	capital: string
+}
+
+interface CountryCardProps {
+	country: Country
+}
+
+function CountryCardComponent({ country }: CountryCardProps) {
 
 	return (
 		<Container>
-			<img src="https://restcountries.eu/data/umi.svg" alt="USA" />
+			<img src={country.flag} alt={country.name} />
 			<div>
-				<h2>United States of America</h2>
+				<h2>{country.name}</h2>
 
-				<p><strong>Population: </strong> 323.947,000</p>
-				<p><strong>Region: </strong> Americas</p>
-				<p><strong>Capital: </strong> Washington, D.C.</p>
+				<p><strong>Population: </strong> {country.populationParsed}</p>
+				<p><strong>Region: </strong> {country.region}</p>
+				<p><strong>Capital: </strong> {country.capital}</p>
 			</div>
 		</Container>
 	)
 }
+
+export const CountryCard = memo(CountryCardComponent, (prevProps, nextProps) => {
+	return Object.is(prevProps.country, nextProps.country)
+})

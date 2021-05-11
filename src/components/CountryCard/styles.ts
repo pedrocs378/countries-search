@@ -2,12 +2,14 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
 	width: 20rem;
+	height: 21.875rem;
 	border-radius: 5px;
 	overflow: hidden;
 	background: ${({ theme }) => theme.colors.shape};
 
 	img {
 		width: 100%;
+		max-height: 55%;
 	}
 
 	div {
@@ -49,7 +51,7 @@ export const Container = styled.div`
 		}
 
 		div {
-			padding: 1.4rem 1.5rem 2.6rem;
+			padding: 1.4rem 1.5rem;
 
 			h2 {
 				font-size: 1.07rem;

@@ -1,9 +1,12 @@
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useState } from "react";
-import { CountryCard } from "../components/CountryCard";
 
+import { CountryCard } from "../components/CountryCard";
 import { Header } from "../components/Header";
 import { SearchInput } from "../components/SearchInput";
+
+import { api } from "../services/api";
 
 import {
   Container,
@@ -11,6 +14,20 @@ import {
   FiltersSelect,
   Content,
 } from './home.styles'
+
+interface Country {
+  numericCode: string
+  name: string
+  population: number
+  populationParsed: string
+  region: string
+  flag: string
+  capital: string
+}
+
+interface HomeProps {
+  countries: Country[]
+}
 
 const filters = [
   { value: 'africa', label: 'Africa' },
@@ -20,7 +37,7 @@ const filters = [
   { value: 'oceania', label: 'Oceania' },
 ]
 
-export default function Home() {
+export default function Home({ countries }: HomeProps) {
   const [searchText, setSearchText] = useState('')
   const [isFocused, setIsFocused] = useState(false)
   const [isFilled, setIsFilled] = useState(false)
@@ -37,6 +54,10 @@ export default function Home() {
 
   function handleSearchInputFocus() {
     setIsFocused(true)
+  }
+
+  if (!countries) {
+    return
   }
 
   return (
@@ -67,17 +88,29 @@ export default function Home() {
         </SearchContainer>
 
         <Content>
-          <CountryCard />
-          <CountryCard />
-          <CountryCard />
-          <CountryCard />
-          <CountryCard />
-          <CountryCard />
-          <CountryCard />
-          <CountryCard />
-          <CountryCard />
+          {countries.map(country => {
+            return <CountryCard key={country.numericCode} country={country} />
+          })}
         </Content>
       </Container>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const response = await api.get<Country[]>('all')
+
+  const countries = response.data.map(country => {
+    return {
+      ...country,
+      populationParsed: country.population.toLocaleString()
+    }
+
+  })
+
+  return {
+    props: {
+      countries
+    }
+  }
 }
