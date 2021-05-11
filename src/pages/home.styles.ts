@@ -16,7 +16,7 @@ export const SearchContainer = styled.div`
 
 export const FiltersSelect = styled(Select)`
 	margin-top: 2.5rem;
-	max-width: 250px;
+	max-width: 220px;
 
 	.react-select__control {
 		border: 0;
@@ -67,5 +67,9 @@ export const FiltersSelect = styled(Select)`
 `
 
 export const Content = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
+	margin-bottom: 2rem;
 `
