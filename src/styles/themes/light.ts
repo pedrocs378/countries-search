@@ -1,3 +1,5 @@
+import { DefaultTheme } from "styled-components"
+
 const light = {
 	title: 'light',
 
@@ -7,6 +9,6 @@ const light = {
 		heading: '#111517',
 		text: '	#858585',
 	}
-}
+} as DefaultTheme
 
 export default light

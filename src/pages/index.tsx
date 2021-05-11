@@ -20,7 +20,7 @@ interface Country {
   numericCode: string
   name: string
   population: number
-  populationParsed: string
+  populationFormatted: string
   region: string
   flag: string
   capital: string
@@ -156,7 +156,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const countries = response.data.map(country => {
     return {
       ...country,
-      populationParsed: country.population.toLocaleString()
+      populationFormatted: country.population.toLocaleString()
     }
   })
 

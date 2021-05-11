@@ -75,7 +75,7 @@ export const Details = styled.div`
 			margin-top: 2rem;
 
 			p {
-				color: ${({ theme }) => theme.colors.heading};
+				color: ${({ theme }) => theme.colors.text};
 				font-size: 0.9rem;
 
 				strong {

@@ -5,7 +5,7 @@ import { Container } from './styles'
 
 interface Country {
 	name: string
-	populationParsed: string
+	populationFormatted: string
 	region: string
 	flag: string
 	capital: string
@@ -24,7 +24,7 @@ function CountryCardComponent({ country }: CountryCardProps) {
 				<div>
 					<h2>{country.name}</h2>
 
-					<p><strong>Population: </strong> {country.populationParsed}</p>
+					<p><strong>Population: </strong> {country.populationFormatted}</p>
 					<p><strong>Region: </strong> {country.region}</p>
 					<p><strong>Capital: </strong> {country.capital}</p>
 				</div>
