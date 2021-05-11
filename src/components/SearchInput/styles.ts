@@ -8,8 +8,9 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
 	display: flex;
 	align-items: center;
+	width: 100%;
 	max-width: 450px;
-	height: 3.5rem;
+	height: 3.2rem;
 	background: ${({ theme }) => theme.colors.shape};
 	padding: 0 1.2rem;
 	border-radius: 5px;

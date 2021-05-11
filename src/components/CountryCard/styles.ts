@@ -38,4 +38,35 @@ export const Container = styled.div`
 	& + div {
 		margin-top: 2rem;
 	}
+
+	@media (min-width: 720px) {
+		width: calc((100% / 4) - 3rem);
+		margin-bottom: 5rem;
+		margin-right: 4rem;
+
+		&:nth-child(4n) {
+			margin-right: 0;
+		}
+
+		div {
+			padding: 1.4rem 1.5rem 2.6rem;
+
+			h2 {
+				font-size: 1.07rem;
+				margin-bottom: 1.1rem;
+			}
+
+			p {
+				font-size: 0.76rem;
+
+				& + p {
+					margin-top: 0.5rem;
+				}
+			}
+		}
+
+		& + div {
+			margin-top: 0;
+		}
+	}
 `

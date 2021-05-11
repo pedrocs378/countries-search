@@ -70,6 +70,12 @@ export default function Home() {
           <CountryCard />
           <CountryCard />
           <CountryCard />
+          <CountryCard />
+          <CountryCard />
+          <CountryCard />
+          <CountryCard />
+          <CountryCard />
+          <CountryCard />
         </Content>
       </Container>
     </>

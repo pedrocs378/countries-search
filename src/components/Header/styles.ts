@@ -1,9 +1,12 @@
 import styled from 'styled-components'
 
 export const Container = styled.header`
-	/* height: 4.375rem; */
 	height: 6rem;
 	background: ${({ theme }) => theme.colors.shape};
+
+	@media (min-width: 720px) {
+		height: 4.375rem;
+	}
 `
 
 export const Content = styled.div`
@@ -35,6 +38,14 @@ export const Content = styled.div`
 			margin-right: 0.4rem;
 			height: 16px;
 			width: 16px;
+		}
+	}
+
+	@media (min-width: 720px) {
+		height: 4.375rem;
+
+		h1 {
+			font-size: 1.22rem;	
 		}
 	}
 `

@@ -12,10 +12,19 @@ export const SearchContainer = styled.div`
 	
 	display: flex;
 	flex-direction: column;
+
+	@media (min-width: 720px) {
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+
+		margin: 2.5rem 0;
+	}
 `
 
 export const FiltersSelect = styled(Select)`
 	margin-top: 2.5rem;
+	width: 100%;
 	max-width: 220px;
 
 	.react-select__control {
@@ -23,7 +32,7 @@ export const FiltersSelect = styled(Select)`
 		background: ${({ theme }) => theme.colors.shape};
 		cursor: pointer;
 		padding: 0 1rem;
-		height: 3.5rem;
+		height: 3.2rem;
 	}
 
 	.react-select__control--is-focused {
@@ -64,6 +73,11 @@ export const FiltersSelect = styled(Select)`
 	.react-select__option--is-selected {
 		background-color: ${({ theme }) => theme.colors.background};
 	}
+
+	@media (min-width: 720px) {
+		margin-top: 0;
+		max-width: 200px;
+	}
 `
 
 export const Content = styled.div`
@@ -72,4 +86,11 @@ export const Content = styled.div`
 	align-items: center;
 
 	margin-bottom: 2rem;
+
+	@media (min-width: 720px) {
+		flex-direction: row;
+		flex-wrap: wrap;
+
+		
+	}
 `
