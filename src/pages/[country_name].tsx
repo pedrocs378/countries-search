@@ -28,6 +28,7 @@ interface Country {
 	name: string
 	nativeName: string
 	population: number
+	populationFormatted: string
 	region: string
 	subregion: string
 	capital: string
@@ -65,34 +66,36 @@ export default function CountryDetails({ data }: CountryDetailsProps) {
 					<Details>
 						<h1>{data.name}</h1>
 
-						<section>
-							<p><strong>Native Name: </strong>{data.nativeName}</p>
-							<p><strong>Population: </strong>{data.population}</p>
-							<p><strong>Region: </strong>{data.region}</p>
-							<p><strong>Sub Region: </strong>{data.subregion}</p>
-							<p><strong>Capital: </strong>{data.capital}</p>
-						</section>
+						<div>
+							<section>
+								<p><strong>Native Name: </strong>{data.nativeName}</p>
+								<p><strong>Population: </strong>{data.populationFormatted}</p>
+								<p><strong>Region: </strong>{data.region}</p>
+								<p><strong>Sub Region: </strong>{data.subregion}</p>
+								<p><strong>Capital: </strong>{data.capital}</p>
+							</section>
 
-						<section>
-							<p>
-								<strong>Top Level Domain: </strong>
-								{data.topLevelDomain.map(domain => (
-									<span key={domain}>{domain}</span>
-								))}
-							</p>
-							<p>
-								<strong>Currencies: </strong>
-								{data.currencies.map(currency => (
-									<span key={currency.code}>{currency.name}</span>
-								))}
-							</p>
-							<p>
-								<strong>Languages: </strong>
-								{data.languages.map(language => (
-									<span key={language.name}>{language.name}</span>
-								))}
-							</p>
-						</section>
+							<section>
+								<p>
+									<strong>Top Level Domain: </strong>
+									{data.topLevelDomain.map(domain => (
+										<span key={domain}>{domain}</span>
+									))}
+								</p>
+								<p>
+									<strong>Currencies: </strong>
+									{data.currencies.map(currency => (
+										<span key={currency.code}>{currency.name}</span>
+									))}
+								</p>
+								<p>
+									<strong>Languages: </strong>
+									{data.languages.map(language => (
+										<span key={language.name}>{language.name}</span>
+									))}
+								</p>
+							</section>
+						</div>
 					</Details>
 				</Content>
 			</Container>
@@ -102,11 +105,16 @@ export default function CountryDetails({ data }: CountryDetailsProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 	const { country_name } = params
-	const response = await api.get(`/name/${country_name}?fullText=true`)
+	const response = await api.get<Country[]>(`/name/${country_name}?fullText=true`)
+
+	const [country] = response.data
 
 	return {
 		props: {
-			data: response.data[0]
+			data: {
+				...country,
+				populationFormatted: country.population.toLocaleString()
+			}
 		}
 	}
 }
