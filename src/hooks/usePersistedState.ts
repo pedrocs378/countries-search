@@ -8,9 +8,11 @@ type Response<T> = [
 
 export function usePersistedState<T>(key: string, initialState: any): Response<T> {
 	const [state, setState] = useState(() => {
-		const { key: storagedValue } = parseCookies()
+		const cookies = parseCookies()
 
-		if (storagedValue) {
+		if (cookies[key]) {
+			const storagedValue = cookies[key]
+
 			return JSON.parse(storagedValue)
 		}
 
@@ -18,7 +20,10 @@ export function usePersistedState<T>(key: string, initialState: any): Response<T
 	})
 
 	useEffect(() => {
-		setCookie(undefined, key, JSON.stringify(state))
+		setCookie(undefined, key, JSON.stringify(state), {
+			path: '/',
+			maxAge: 60 * 60 * 24 * 30 * 12
+		})
 	}, [key, state])
 
 	return [state, setState]
