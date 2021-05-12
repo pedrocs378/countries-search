@@ -12,13 +12,15 @@ export const Container = styled.main`
 `
 
 export const ButtonBack = styled.a`
-	max-width: 130px;
+	max-width: 90px;
 	height: 2.3rem;
 
 	text-decoration: none;
 	color: ${({ theme }) => theme.colors.heading};
 	background: ${({ theme }) => theme.colors.shape};
-	box-shadow: 0 0 5px 1px ${({ theme }) => shade(0.1, theme.colors.shape)};
+	box-shadow: 0 0 5px 1px ${({ theme }) => {
+		return shade(theme.title === 'light' ? 0.1 : 0.4, theme.colors.shape)
+	}};
 
 	border-radius: 5px;
 	line-height: 20px;
@@ -29,13 +31,21 @@ export const ButtonBack = styled.a`
 	justify-content: center;
 
 	svg {
-		margin-right: 0.7rem;
+		margin-right: 0.4rem;
 		height: 20px;
 		width: 20px;
 	}
 
 	&:hover {
 		background: ${({ theme }) => shade(0.1, theme.colors.shape)};
+	}
+
+	@media (min-width: 720px) {
+		max-width: 130px;
+
+		svg {
+			margin-right: 0.7rem;
+		}
 	}
 `
 
@@ -100,14 +110,79 @@ export const Details = styled.div`
 		}
 	}
 
+	> section {
+		display: flex;
+		flex-direction: column;
+
+		margin-top: 2rem;
+		color: ${({ theme }) => theme.colors.heading};	
+		
+		h3 {
+			font-size: 1rem;	
+			font-weight: 800;
+			margin-bottom: 1.5rem;
+		}
+
+		> div {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			grid-gap: 0.6rem;
+		}
+	}
+
 	@media (min-width: 720px) {
 		width: 100%;
 		max-width: 580px;
+		margin-top: 0;
 		margin-left: 0.5rem;
 
 		> div {
 			flex-direction: row;
 			justify-content: space-between;
 		}
+
+		> section {
+			margin-top: 5rem;
+
+			flex-direction: row;
+
+			h3 {
+				margin-bottom: 0;
+				margin-top: 0.4rem;
+				margin-right: 1rem;
+			}
+
+			> div {
+				flex: 1;
+				grid-template-columns: 1fr 1fr;
+			}
+		}
 	}
+
+	@media (min-width: 1080px) {
+		> section {
+			> div {
+				grid-template-columns: 1fr 1fr 1fr 1fr;
+			}
+		}
+	}
+`
+
+export const BorderCountryButton = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 100%;
+	height: 2.3rem;
+
+	text-decoration: none;
+	color: ${({ theme }) => theme.colors.heading};
+	background: ${({ theme }) => theme.colors.shape};
+	box-shadow: 0 0 5px 1px ${({ theme }) => {
+		return shade(theme.title === 'light' ? 0.1 : 0.4, theme.colors.shape)
+	}};
+
+	border-radius: 5px;
+	transition: background-color 0.2s;
 `

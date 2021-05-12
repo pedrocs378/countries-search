@@ -12,6 +12,7 @@ import {
 	ButtonBack,
 	Content,
 	Details,
+	BorderCountryButton,
 } from '../styles/pages/countryDetails.styles'
 
 interface Currency {
@@ -96,6 +97,19 @@ export default function CountryDetails({ data }: CountryDetailsProps) {
 								</p>
 							</section>
 						</div>
+
+						<section>
+							<h3>Border Countries:</h3>
+							<div>
+								{data.borders.map(country => {
+									return (
+										<BorderCountryButton key={country}>
+											{country}
+										</BorderCountryButton>
+									)
+								})}
+							</div>
+						</section>
 					</Details>
 				</Content>
 			</Container>

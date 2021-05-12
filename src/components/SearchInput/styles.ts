@@ -15,7 +15,11 @@ export const Container = styled.form<ContainerProps>`
 	padding: 0 1.2rem;
 	border-radius: 5px;
 	background: ${({ theme }) => theme.colors.shape};
-	box-shadow: 0 0 5px 1px ${({ theme }) => shade(0.1, theme.colors.shape)};
+
+	box-shadow: 0 0 5px 1px ${({ theme }) => {
+		return shade(theme.title === 'light' ? 0.1 : 0.3, theme.colors.shape)
+	}};
+	
 	color: ${({ theme, isFocused, isFilled }) => {
 		return isFocused || isFilled ? theme.colors.heading : theme.colors.text
 	}};

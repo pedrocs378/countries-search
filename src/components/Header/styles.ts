@@ -4,7 +4,9 @@ import { shade } from 'polished'
 export const Container = styled.header`
 	height: 6rem;
 	background: ${({ theme }) => theme.colors.shape};
-	box-shadow: 0 2px 6px ${({ theme }) => shade(0.1, theme.colors.shape)};
+	box-shadow: 0 2px 6px ${({ theme }) => {
+		return shade(theme.title === 'light' ? 0.1 : 0.3, theme.colors.shape)
+	}};
 
 	@media (min-width: 720px) {
 		height: 4.375rem;

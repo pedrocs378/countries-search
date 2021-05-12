@@ -27,7 +27,9 @@ export const FiltersSelect = styled(Select)`
 	margin-top: 2.5rem;
 	width: 100%;
 	max-width: 220px;
-	box-shadow: 0 0 5px 1px ${({ theme }) => shade(0.1, theme.colors.shape)};
+	box-shadow: 0 0 5px 1px ${({ theme }) => {
+		return shade(theme.title === 'light' ? 0.1 : 0.3, theme.colors.shape)
+	}};
 
 	.react-select__control {
 		border: 0;
@@ -36,8 +38,6 @@ export const FiltersSelect = styled(Select)`
 		padding: 0 1rem;
 		height: 3.2rem;
 		font-weight: 600;
-
-		
 	}
 
 	.react-select__control--is-focused {
@@ -74,7 +74,7 @@ export const FiltersSelect = styled(Select)`
 
 	.react-select__option {
 		cursor: pointer;
-		padding: 0.6rem 2rem;
+		padding: 1rem 2rem;
 	}
 
 	.react-select__option--is-focused {
@@ -88,6 +88,10 @@ export const FiltersSelect = styled(Select)`
 
 	@media (min-width: 720px) {
 		margin-top: 0;
+
+		.react-select__option {
+			padding: 0.6rem 2rem;
+		}
 	}
 `
 
