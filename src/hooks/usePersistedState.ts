@@ -1,4 +1,5 @@
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
+import { setCookie, parseCookies } from 'nookies'
 
 type Response<T> = [
 	T,
@@ -7,7 +8,7 @@ type Response<T> = [
 
 export function usePersistedState<T>(key: string, initialState: any): Response<T> {
 	const [state, setState] = useState(() => {
-		const storagedValue = localStorage.getItem(key)
+		const { key: storagedValue } = parseCookies()
 
 		if (storagedValue) {
 			return JSON.parse(storagedValue)
@@ -17,7 +18,7 @@ export function usePersistedState<T>(key: string, initialState: any): Response<T
 	})
 
 	useEffect(() => {
-		localStorage.setItem(key, JSON.stringify(state))
+		setCookie(undefined, key, JSON.stringify(state))
 	}, [key, state])
 
 	return [state, setState]

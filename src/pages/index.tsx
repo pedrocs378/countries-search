@@ -6,6 +6,7 @@ import Select from 'react-select'
 import { CountryCard } from "../components/CountryCard";
 import { Header } from "../components/Header";
 import { SearchInput } from "../components/SearchInput";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 import { api } from "../services/api";
 

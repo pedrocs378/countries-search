@@ -1,5 +1,6 @@
 import { memo } from 'react'
 import Link from 'next/link'
+import lodash from 'lodash'
 
 import { Container } from './styles'
 
@@ -34,5 +35,5 @@ function CountryCardComponent({ country }: CountryCardProps) {
 }
 
 export const CountryCard = memo(CountryCardComponent, (prevProps, nextProps) => {
-	return Object.is(prevProps.country, nextProps.country)
+	return lodash.isEqual(prevProps.country, nextProps.country)
 })

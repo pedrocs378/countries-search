@@ -1,18 +1,18 @@
-import { memo } from 'react'
 import { IoMoonSharp, IoMoonOutline } from 'react-icons/io5'
-import { useTheme } from 'styled-components'
+
+import { useApptheme } from '../../contexts/AppThemeContext'
 
 import { Container, Content } from './styles'
 
-function HeaderComponent() {
-	const theme = useTheme()
+export function Header() {
+	const { theme, toggleTheme } = useApptheme()
 
 	return (
 		<Container>
 			<Content>
 				<h1>Where in the world?</h1>
 
-				<button type="button">
+				<button type="button" onClick={toggleTheme}>
 					{theme.title === 'light' ? <IoMoonOutline /> : <IoMoonSharp />}
 
 					Dark Mode
@@ -21,5 +21,3 @@ function HeaderComponent() {
 		</Container>
 	)
 }
-
-export const Header = memo(HeaderComponent, () => true)

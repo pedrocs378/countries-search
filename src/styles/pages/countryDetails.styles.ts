@@ -84,7 +84,6 @@ export const Details = styled.div`
 				}
 
 				span {
-
 					& + span {
 						&::before {
 							content: ', '
