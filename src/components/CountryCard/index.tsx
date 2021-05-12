@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 import Link from 'next/link'
 import lodash from 'lodash'
 
@@ -18,8 +18,15 @@ interface CountryCardProps {
 
 function CountryCardComponent({ country }: CountryCardProps) {
 
+	const countryNameNormalized = useMemo(() => {
+		return country.name
+			.normalize('NFD')
+			.replace(/[\u0300-\u036f]/g, "")
+			.toLowerCase()
+	}, [country.name])
+
 	return (
-		<Link href={`/${country.name}`} passHref>
+		<Link href={`/${countryNameNormalized}`} passHref>
 			<Container>
 				<img src={country.flag} alt={country.name} />
 				<div>

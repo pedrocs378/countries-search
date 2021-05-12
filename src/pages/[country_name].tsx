@@ -105,16 +105,23 @@ export default function CountryDetails({ data }: CountryDetailsProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 	const { country_name } = params
-	const response = await api.get<Country[]>(`/name/${country_name}?fullText=true`)
+	try {
+		const response = await api.get<Country[]>(`/name/${country_name}?fullText=true`)
 
-	const [country] = response.data
+		const [country] = response.data
 
-	return {
-		props: {
-			data: {
-				...country,
-				populationFormatted: country.population.toLocaleString()
+		return {
+			props: {
+				data: {
+					...country,
+					populationFormatted: country.population.toLocaleString()
+				}
 			}
+		}
+	} catch {
+		return {
+			props: {},
+			notFound: true
 		}
 	}
 }

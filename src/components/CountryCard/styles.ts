@@ -81,7 +81,7 @@ export const Container = styled.a`
 		}
 
 		&:hover {
-			transform: translateY(-3%);
+			transform: translateY(-1.5%);
 		}
 	}
 
