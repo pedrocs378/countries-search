@@ -42,12 +42,16 @@ const filters = [
   { value: 'oceania', label: 'Oceania' },
 ] as FilterParams[]
 
+let searchTimeout: NodeJS.Timeout
+
 export default function Home({ data }: HomeProps) {
   const [countries, setCountries] = useState<Country[]>(data)
   const [searchText, setSearchText] = useState('')
   const [filter, setFilter] = useState<FilterParams>(null)
   const [isFocused, setIsFocused] = useState(false)
   const [isFilled, setIsFilled] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isErrored, setIsErrored] = useState(false)
 
   function handleSearchInputBlur() {
     if (searchText.trim()) {
@@ -64,24 +68,38 @@ export default function Home({ data }: HomeProps) {
   }
 
   useEffect(() => {
+    clearTimeout(searchTimeout)
+    setIsLoading(true)
+    setIsErrored(false)
+
     if (!searchText.trim()) {
       setCountries(data)
+      setIsLoading(false)
+      setIsErrored(false)
+
       return
     }
 
-    api
-      .get(`/name/${searchText}`)
-      .then(response => {
-        const countriesTransformed = response.data.map(country => {
-          return {
-            ...country,
-            populationFormatted: country.population.toLocaleString()
-          }
-        })
+    searchTimeout = setTimeout(() => {
+      api
+        .get(`/name/${searchText}`)
+        .then(response => {
+          const countriesTransformed = response.data.map(country => {
+            return {
+              ...country,
+              populationFormatted: country.population.toLocaleString()
+            }
+          })
 
-        setCountries(countriesTransformed)
-      })
-      .catch(() => setCountries(data))
+          setCountries(countriesTransformed)
+        })
+        .catch(() => {
+          setCountries(data)
+          setIsErrored(true)
+        })
+        .finally(() => setIsLoading(false))
+    }, 1000)
+
   }, [searchText])
 
   useEffect(() => {
@@ -124,6 +142,8 @@ export default function Home({ data }: HomeProps) {
             onChange={event => setSearchText(event.target.value)}
             isFocused={isFocused}
             isFilled={isFilled}
+            loading={isLoading}
+            error={isErrored}
             onFocus={handleSearchInputFocus}
             onBlur={handleSearchInputBlur}
           />

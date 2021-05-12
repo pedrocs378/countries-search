@@ -98,18 +98,20 @@ export default function CountryDetails({ data }: CountryDetailsProps) {
 							</section>
 						</div>
 
-						<section>
-							<h3>Border Countries:</h3>
-							<div>
-								{data.borders.map(country => {
-									return (
-										<BorderCountryButton key={country}>
-											{country}
-										</BorderCountryButton>
-									)
-								})}
-							</div>
-						</section>
+						{data.borders.length > 0 && (
+							<section>
+								<h3>Border Countries:</h3>
+								<div>
+									{data.borders.map(country => {
+										return (
+											<BorderCountryButton key={country}>
+												{country}
+											</BorderCountryButton>
+										)
+									})}
+								</div>
+							</section>
+						)}
 					</Details>
 				</Content>
 			</Container>

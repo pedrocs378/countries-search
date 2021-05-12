@@ -1,17 +1,35 @@
 import { shade } from 'polished'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 interface ContainerProps {
 	isFocused: boolean
 	isFilled: boolean
 }
 
+const errorAnimation = keyframes`
+	0% {
+		opacity: 0;
+		transform: translateY(-45%);
+	}
+
+	90% {
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateY(0%);
+	}
+`
+
 export const Container = styled.form<ContainerProps>`
+	position: relative;
+
 	display: flex;
 	align-items: center;
 	width: 100%;
 	max-width: 450px;
 	height: 3.2rem;
+
 	padding: 0 1.2rem;
 	border-radius: 5px;
 	background: ${({ theme }) => theme.colors.shape};
@@ -33,7 +51,8 @@ export const Container = styled.form<ContainerProps>`
 		width: 100%;
 		height: 100%;
 		outline: none;
-		padding: 0 1.2rem;
+		padding-left: 1.2rem;
+		padding-right: 0.5rem;
 		background: none;
 		border: 0;
 		color: ${({ theme }) => theme.colors.heading};
@@ -42,5 +61,25 @@ export const Container = styled.form<ContainerProps>`
 
 	input::placeholder {
 		color: ${({ theme }) => theme.colors.text};
+	}
+
+	span {
+		position: absolute;
+		bottom: -1.4rem;
+
+		display: flex;
+		align-items: center;
+
+		font-size: 0.7rem;
+		line-height: 0.7rem;
+		color: #E33D3D;
+
+		animation: ${errorAnimation} 600ms;
+
+		svg {
+			height: 16px;
+			width: 16px;
+			margin-right: 0.3rem;	
+		}
 	}
 `
