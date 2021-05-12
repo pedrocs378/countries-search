@@ -4,6 +4,7 @@ import styled from 'styled-components'
 export const Container = styled.main`
 	max-width: 1440px;
 	margin: 2rem auto;
+	margin-bottom: 8rem;
 	padding: 0 1rem;
 	font-size: 1rem;
 

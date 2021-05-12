@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 
 import { CountryCard } from "../components/CountryCard";
+import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { SearchInput } from "../components/SearchInput";
 
@@ -165,6 +166,8 @@ export default function Home({ data }: HomeProps) {
           })}
         </Content>
       </Container>
+
+      <Footer />
     </>
   )
 }

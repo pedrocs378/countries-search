@@ -100,8 +100,6 @@ export const Content = styled.div`
 	flex-direction: column;
 	align-items: center;
 
-	margin-bottom: 2rem;
-
 	@media (min-width: 720px) {
 		flex-direction: row;
 		flex-wrap: wrap;

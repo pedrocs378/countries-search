@@ -65,7 +65,7 @@ export const Container = styled.form<ContainerProps>`
 
 	span {
 		position: absolute;
-		bottom: -1.4rem;
+		bottom: -1.48rem;
 
 		display: flex;
 		align-items: center;
