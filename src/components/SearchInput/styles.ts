@@ -1,3 +1,4 @@
+import { shade } from 'polished'
 import styled from 'styled-components'
 
 interface ContainerProps {
@@ -11,9 +12,10 @@ export const Container = styled.form<ContainerProps>`
 	width: 100%;
 	max-width: 450px;
 	height: 3.2rem;
-	background: ${({ theme }) => theme.colors.shape};
 	padding: 0 1.2rem;
 	border-radius: 5px;
+	background: ${({ theme }) => theme.colors.shape};
+	box-shadow: 0 0 5px 1px ${({ theme }) => shade(0.1, theme.colors.shape)};
 	color: ${({ theme, isFocused, isFilled }) => {
 		return isFocused || isFilled ? theme.colors.heading : theme.colors.text
 	}};

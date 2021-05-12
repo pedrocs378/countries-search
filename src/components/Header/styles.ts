@@ -4,7 +4,7 @@ import { shade } from 'polished'
 export const Container = styled.header`
 	height: 6rem;
 	background: ${({ theme }) => theme.colors.shape};
-	box-shadow: 0 0 6px ${({ theme }) => shade(0.3, theme.colors.shape)};
+	box-shadow: 0 2px 6px ${({ theme }) => shade(0.1, theme.colors.shape)};
 
 	@media (min-width: 720px) {
 		height: 4.375rem;
@@ -35,6 +35,7 @@ export const Content = styled.div`
 		color: ${({ theme }) => theme.colors.heading};
 		line-height: 16px;
 		font-size: 0.8rem;
+		font-weight: 600;
 
 		svg {
 			margin-right: 0.4rem;

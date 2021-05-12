@@ -12,14 +12,16 @@ export const Container = styled.main`
 `
 
 export const ButtonBack = styled.a`
+	max-width: 130px;
+	height: 2.3rem;
+
 	text-decoration: none;
 	color: ${({ theme }) => theme.colors.heading};
 	background: ${({ theme }) => theme.colors.shape};
-	max-width: 130px;
-	height: 2.3rem;
-	border-radius: 2px;
+	box-shadow: 0 0 5px 1px ${({ theme }) => shade(0.1, theme.colors.shape)};
+
+	border-radius: 5px;
 	line-height: 20px;
-	box-shadow: 0 5px 8px ${({ theme }) => shade(0.3, theme.colors.shape)};
 	transition: background-color 0.2s;
 
 	display: flex;

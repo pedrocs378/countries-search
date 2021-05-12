@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Select from 'react-select'
+import { shade } from 'polished'
 
 export const Container = styled.main`
 	max-width: 1440px;
@@ -26,6 +27,7 @@ export const FiltersSelect = styled(Select)`
 	margin-top: 2.5rem;
 	width: 100%;
 	max-width: 220px;
+	box-shadow: 0 0 5px 1px ${({ theme }) => shade(0.1, theme.colors.shape)};
 
 	.react-select__control {
 		border: 0;
@@ -33,6 +35,7 @@ export const FiltersSelect = styled(Select)`
 		cursor: pointer;
 		padding: 0 1rem;
 		height: 3.2rem;
+		font-weight: 600;
 	}
 
 	.react-select__control--is-focused {
@@ -58,6 +61,7 @@ export const FiltersSelect = styled(Select)`
 	.react-select__menu {
 		background-color: ${({ theme }) => theme.colors.shape};
 		color: ${({ theme }) => theme.colors.heading};
+		font-weight: 600;
 		padding: 0.3rem 0;
 	}
 
@@ -72,6 +76,7 @@ export const FiltersSelect = styled(Select)`
 
 	.react-select__option--is-selected {
 		background-color: ${({ theme }) => theme.colors.background};
+		color: ${({ theme }) => theme.colors.heading};
 	}
 
 	@media (min-width: 720px) {

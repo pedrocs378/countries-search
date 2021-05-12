@@ -1,3 +1,4 @@
+import { shade } from 'polished'
 import styled from 'styled-components'
 
 export const Container = styled.a`
@@ -6,6 +7,7 @@ export const Container = styled.a`
 	border-radius: 5px;
 	overflow: hidden;
 	background: ${({ theme }) => theme.colors.shape};
+	box-shadow: 0 0 5px 1px ${({ theme }) => shade(0.1, theme.colors.shape)};
 	text-decoration: none;
 
 	display: flex;

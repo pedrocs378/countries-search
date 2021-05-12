@@ -7,7 +7,7 @@ const dark = {
 		background: '#202c37',
 		shape: '#2b3945',
 		heading: '#fff',
-		text: '#fff',
+		text: '#c1c1c1',
 	}
 } as DefaultTheme
 
