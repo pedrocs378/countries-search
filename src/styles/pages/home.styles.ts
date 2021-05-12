@@ -36,6 +36,8 @@ export const FiltersSelect = styled(Select)`
 		padding: 0 1rem;
 		height: 3.2rem;
 		font-weight: 600;
+
+		
 	}
 
 	.react-select__control--is-focused {
@@ -51,7 +53,12 @@ export const FiltersSelect = styled(Select)`
 		svg {
 			height: 16px;
 			width: 16px;
+			color: ${({ theme }) => theme.colors.text};
 		}
+	}
+
+	.react-select__placeholder {
+		color: ${({ theme }) => theme.colors.text};
 	}
 
 	.react-select__single-value {

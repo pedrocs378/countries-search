@@ -1,12 +1,10 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import Select from 'react-select'
 
 import { CountryCard } from "../components/CountryCard";
 import { Header } from "../components/Header";
 import { SearchInput } from "../components/SearchInput";
-import { useAppTheme } from "../hooks/useAppTheme";
 
 import { api } from "../services/api";
 
@@ -77,7 +75,7 @@ export default function Home({ data }: HomeProps) {
         const countriesTransformed = response.data.map(country => {
           return {
             ...country,
-            populationParsed: country.population.toLocaleString()
+            populationFormatted: country.population.toLocaleString()
           }
         })
 
