@@ -32,9 +32,9 @@ function CountryCardComponent({ country }: CountryCardProps) {
 				<div>
 					<h2>{country.name}</h2>
 
-					<p><strong>Population: </strong> {country.populationFormatted}</p>
-					<p><strong>Region: </strong> {country.region}</p>
-					<p><strong>Capital: </strong> {country.capital}</p>
+					<p><strong>Population: </strong>{country.populationFormatted}</p>
+					<p><strong>Region: </strong>{country.region}</p>
+					<p><strong>Capital: </strong>{country.capital}</p>
 				</div>
 			</Container>
 		</Link>

@@ -47,26 +47,10 @@ let searchTimeout: NodeJS.Timeout
 
 export default function Home({ data }: HomeProps) {
   const [countries, setCountries] = useState<Country[]>(data)
-  const [searchText, setSearchText] = useState('')
   const [filter, setFilter] = useState<FilterParams>(null)
-  const [isFocused, setIsFocused] = useState(false)
-  const [isFilled, setIsFilled] = useState(false)
+  const [searchText, setSearchText] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isErrored, setIsErrored] = useState(false)
-
-  function handleSearchInputBlur() {
-    if (searchText.trim()) {
-      setIsFilled(true)
-    } else {
-      setIsFilled(false)
-    }
-
-    setIsFocused(false)
-  }
-
-  function handleSearchInputFocus() {
-    setIsFocused(true)
-  }
 
   useEffect(() => {
     clearTimeout(searchTimeout)
@@ -124,10 +108,6 @@ export default function Home({ data }: HomeProps) {
       .catch(() => setCountries(data))
   }, [filter])
 
-  if (!data) {
-    return <div>Carregando...</div>
-  }
-
   return (
     <>
       <Head>
@@ -141,12 +121,8 @@ export default function Home({ data }: HomeProps) {
           <SearchInput
             value={searchText}
             onChange={event => setSearchText(event.target.value)}
-            isFocused={isFocused}
-            isFilled={isFilled}
             loading={isLoading}
             error={isErrored}
-            onFocus={handleSearchInputFocus}
-            onBlur={handleSearchInputBlur}
           />
 
           <FiltersSelect
@@ -175,12 +151,14 @@ export default function Home({ data }: HomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const response = await api.get<Country[]>('all')
 
-  const countries = response.data.map(country => {
-    return {
-      ...country,
-      populationFormatted: country.population.toLocaleString()
-    }
-  })
+  const countries = response.data
+    .filter(country => country.population > 10000)
+    .map(country => {
+      return {
+        ...country,
+        populationFormatted: country.population.toLocaleString()
+      }
+    })
 
   return {
     props: {

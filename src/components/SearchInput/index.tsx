@@ -1,21 +1,34 @@
-import { FormEvent, InputHTMLAttributes } from 'react'
+import { FormEvent, InputHTMLAttributes, useRef, useState } from 'react'
 import { IoSearch } from 'react-icons/io5'
 import { BiErrorCircle } from 'react-icons/bi'
 import ReactLoading from 'react-loading'
+import ReactTooltip from 'react-tooltip'
 import { useTheme } from 'styled-components'
 
 import { Container } from './styles'
 
 interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {
-	isFocused: boolean
-	isFilled: boolean
 	loading?: boolean
 	error?: boolean
 	onSubmit?: () => Promise<void>
 }
 
-export function SearchInput({ isFilled, isFocused, loading = false, error = false, onSubmit, ...rest }: SearchInputProps) {
+export function SearchInput({ loading = false, error = false, onSubmit, ...rest }: SearchInputProps) {
+	const inputRef = useRef<HTMLInputElement>(null)
+	const [isFocused, setIsFocused] = useState(false)
+	const [isFilled, setIsFilled] = useState(false)
+
 	const theme = useTheme()
+
+	function handleInputBlur() {
+		setIsFocused(false)
+
+		setIsFilled(!!inputRef.current.value.trim())
+	}
+
+	function handleInputFocus() {
+		setIsFocused(true)
+	}
 
 	async function handleSubmit(event: FormEvent) {
 		event.preventDefault()
@@ -24,12 +37,20 @@ export function SearchInput({ isFilled, isFocused, loading = false, error = fals
 	}
 
 	return (
-		<Container onSubmit={handleSubmit} isFocused={isFocused} isFilled={isFilled}>
+		<Container
+			onSubmit={handleSubmit}
+			isFocused={isFocused}
+			isFilled={isFilled}
+		>
 			<IoSearch />
 
 			<input
+				ref={inputRef}
 				type="text"
+				name="country"
 				placeholder="Search for a country..."
+				onFocus={handleInputFocus}
+				onBlur={handleInputBlur}
 				{...rest}
 			/>
 
