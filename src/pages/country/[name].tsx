@@ -123,9 +123,23 @@ export default function CountryDetails({ data }: CountryDetailsProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+	const response = await api.get<{ name: string, population: number }[]>('/all')
+
+	const paths = response.data
+		.filter(country => country.population >= 10000000)
+		.map(country => {
+			const nameNormalized = country.name
+				.normalize('NFD')
+				.replace(/[\u0300-\u036f]/g, "")
+				.toLowerCase()
+
+			return {
+				params: { name: nameNormalized }
+			}
+		})
 
 	return {
-		paths: [],
+		paths,
 		fallback: 'blocking'
 	}
 }
