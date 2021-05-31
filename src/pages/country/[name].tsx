@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { BsArrowLeft } from 'react-icons/bs'
@@ -14,7 +14,7 @@ import {
 	Content,
 	Details,
 	BorderCountryButton,
-} from './styles'
+} from '../../styles/pages/countryDetails.styles'
 
 interface Currency {
 	code: string
