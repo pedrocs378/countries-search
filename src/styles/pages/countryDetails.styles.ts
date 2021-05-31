@@ -156,9 +156,6 @@ export const Details = styled.div`
 		}
 	}
 
-	@media (min-width: 1080px) {
-	
-	}
 `
 
 export const BorderCountryButton = styled.a`

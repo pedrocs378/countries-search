@@ -132,12 +132,12 @@ export default function CountryDetails({ data }: CountryDetailsProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const response = await api.get<{ nativeName: string, population: number }[]>('/all')
+	const response = await api.get<{ name: string, population: number }[]>('/all')
 
 	const paths = response.data
 		.filter(country => country.population >= 10000000)
 		.map(country => {
-			const nameNormalized = normalizeName(country.nativeName)
+			const nameNormalized = normalizeName(country.name)
 
 			return {
 				params: { name: nameNormalized }
