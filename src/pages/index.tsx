@@ -1,6 +1,6 @@
-import { GetServerSideProps } from "next";
-import Head from "next/head";
 import { useEffect, useState } from "react";
+import { GetStaticProps } from "next";
+import Head from "next/head";
 
 import { CountryCard } from "../components/CountryCard";
 import { Footer } from "../components/Footer";
@@ -172,7 +172,7 @@ export default function Home({ data }: HomeProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const response = await api.get<Country[]>('all')
 
   const countries = response.data.map(country => {
@@ -184,7 +184,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: {
-      data: countries
+      data: countries,
     },
+    revalidate: 60 * 60 * 24 * 7
   }
 }

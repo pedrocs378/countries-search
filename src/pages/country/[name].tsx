@@ -1,12 +1,12 @@
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { BsArrowLeft } from 'react-icons/bs'
-import { Footer } from '../components/Footer'
 
-import { Header } from '../components/Header'
+import { Footer } from '../../components/Footer'
+import { Header } from '../../components/Header'
 
-import { api } from '../services/api'
+import { api } from '../../services/api'
 
 import {
 	Container,
@@ -14,7 +14,7 @@ import {
 	Content,
 	Details,
 	BorderCountryButton,
-} from '../styles/pages/countryDetails.styles'
+} from './styles'
 
 interface Currency {
 	code: string
@@ -122,10 +122,18 @@ export default function CountryDetails({ data }: CountryDetailsProps) {
 	)
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-	const { country_name } = params
+export const getStaticPaths: GetStaticPaths = async () => {
+
+	return {
+		paths: [],
+		fallback: 'blocking'
+	}
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+	const { name } = params
 	try {
-		const response = await api.get<Country[]>(`/name/${country_name}?fullText=true`)
+		const response = await api.get<Country[]>(`/name/${name}?fullText=true`)
 
 		const [country] = response.data
 
@@ -135,7 +143,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 					...country,
 					populationFormatted: country.population.toLocaleString()
 				}
-			}
+			},
+			revalidate: 60 * 60 * 24 * 7
 		}
 	} catch {
 		return {

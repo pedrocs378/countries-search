@@ -26,7 +26,7 @@ function CountryCardComponent({ country }: CountryCardProps) {
 	}, [country.name])
 
 	return (
-		<Link href={`/${countryNameNormalized}`} passHref>
+		<Link href={`/country/${countryNameNormalized}`} passHref>
 			<Container>
 				<img src={country.flag} alt={country.name} />
 				<div>
