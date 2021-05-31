@@ -15,6 +15,12 @@ import {
 	Details,
 	BorderCountryButton,
 } from '../../styles/pages/countryDetails.styles'
+import { normalizeName } from '../../utils/normalizeName'
+
+interface BorderFormatted {
+	name: string
+	slug: string
+}
 
 interface Currency {
 	code: string
@@ -31,6 +37,7 @@ interface Country {
 	nativeName: string
 	population: number
 	populationFormatted: string
+	bordersFormatted: BorderFormatted[]
 	region: string
 	subregion: string
 	capital: string
@@ -99,15 +106,17 @@ export default function CountryDetails({ data }: CountryDetailsProps) {
 							</section>
 						</div>
 
-						{data.borders.length > 0 && (
+						{data.bordersFormatted.length > 0 && (
 							<section>
 								<h3>Border Countries:</h3>
 								<div>
-									{data.borders.map(country => {
+									{data.bordersFormatted.map(country => {
 										return (
-											<BorderCountryButton key={country}>
-												{country}
-											</BorderCountryButton>
+											<Link key={country.name} href={`/country/${country.slug}`} passHref>
+												<BorderCountryButton>
+													{country.name}
+												</BorderCountryButton>
+											</Link>
 										)
 									})}
 								</div>
@@ -123,15 +132,12 @@ export default function CountryDetails({ data }: CountryDetailsProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const response = await api.get<{ name: string, population: number }[]>('/all')
+	const response = await api.get<{ nativeName: string, population: number }[]>('/all')
 
 	const paths = response.data
 		.filter(country => country.population >= 10000000)
 		.map(country => {
-			const nameNormalized = country.name
-				.normalize('NFD')
-				.replace(/[\u0300-\u036f]/g, "")
-				.toLowerCase()
+			const nameNormalized = normalizeName(country.nativeName)
 
 			return {
 				params: { name: nameNormalized }
@@ -147,15 +153,27 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const { name } = params
 	try {
+		const countriesResponse = await api.get<{ name: string, nativeName: string, alpha3Code: string }[]>('/all')
 		const response = await api.get<Country[]>(`/name/${name}?fullText=true`)
 
+		const countriesCodes = countriesResponse.data
 		const [country] = response.data
+
+		const bordersFormatted = country.borders.map(borderCode => {
+			const borderCountry = countriesCodes.find(code => code.alpha3Code === borderCode)
+
+			return {
+				name: borderCountry.nativeName,
+				slug: normalizeName(borderCountry.name)
+			}
+		})
 
 		return {
 			props: {
 				data: {
 					...country,
-					populationFormatted: country.population.toLocaleString()
+					populationFormatted: country.population.toLocaleString(),
+					bordersFormatted
 				}
 			},
 			revalidate: 60 * 60 * 24 * 7

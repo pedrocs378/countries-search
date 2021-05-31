@@ -2,6 +2,8 @@ import { memo, useMemo } from 'react'
 import Link from 'next/link'
 import lodash from 'lodash'
 
+import { normalizeName } from '../../utils/normalizeName'
+
 import { Container } from './styles'
 
 interface Country {
@@ -19,10 +21,7 @@ interface CountryCardProps {
 function CountryCardComponent({ country }: CountryCardProps) {
 
 	const countryNameNormalized = useMemo(() => {
-		return country.name
-			.normalize('NFD')
-			.replace(/[\u0300-\u036f]/g, "")
-			.toLowerCase()
+		return normalizeName(country.name)
 	}, [country.name])
 
 	return (

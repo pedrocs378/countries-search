@@ -122,12 +122,13 @@ export const Details = styled.div`
 			font-size: 1rem;	
 			font-weight: 800;
 			margin-bottom: 1.5rem;
+			white-space: nowrap;
 		}
 
 		> div {
-			display: grid;
-			grid-template-columns: 1fr 1fr 1fr;
-			grid-gap: 0.6rem;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.6rem;
 		}
 	}
 
@@ -152,38 +153,38 @@ export const Details = styled.div`
 				margin-top: 0.4rem;
 				margin-right: 1rem;
 			}
-
-			> div {
-				flex: 1;
-				grid-template-columns: 1fr 1fr;
-			}
 		}
 	}
 
 	@media (min-width: 1080px) {
-		> section {
-			> div {
-				grid-template-columns: 1fr 1fr 1fr 1fr;
-			}
-		}
+	
 	}
 `
 
-export const BorderCountryButton = styled.div`
+export const BorderCountryButton = styled.a`
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
 	width: 100%;
+	max-width: 120px;
+	padding: 0 1rem;
 	height: 2.3rem;
 
 	text-decoration: none;
+	white-space: nowrap;
+
 	color: ${({ theme }) => theme.colors.heading};
 	background: ${({ theme }) => theme.colors.shape};
+	border-radius: 5px;
+	
 	box-shadow: 0 0 5px 1px ${({ theme }) => {
 		return shade(theme.title === 'light' ? 0.1 : 0.4, theme.colors.shape)
 	}};
 
-	border-radius: 5px;
 	transition: background-color 0.2s;
+
+	&:hover {
+		background: ${({ theme }) => shade(0.1, theme.colors.shape)};
+	}
 `
