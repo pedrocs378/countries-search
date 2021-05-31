@@ -173,6 +173,7 @@ export const BorderCountryButton = styled.a`
 
 	text-decoration: none;
 	white-space: nowrap;
+	overflow: hidden;
 
 	color: ${({ theme }) => theme.colors.heading};
 	background: ${({ theme }) => theme.colors.shape};
